@@ -1,6 +1,6 @@
+import bcrypt from 'bcryptjs'
 import { InMemoryUsersRepository } from '@/repositories/in-memory/in-memory-users-repository'
 import { UserAlreadyExistsError } from '@/use-cases/errors/user-already-exists-error'
-import { compare } from 'bcryptjs'
 import { expect, describe, it } from 'vitest'
 import { RegisterUseCase } from './register'
 
@@ -28,7 +28,7 @@ describe('Register Use Case', () => {
       password: '123456',
     })
 
-    const isPasswordCorrectlyHashed = await compare(
+    const isPasswordCorrectlyHashed = await bcrypt.compare(
       '123456',
       user.password_hash,
     )
@@ -48,7 +48,7 @@ describe('Register Use Case', () => {
       password: '123456',
     })
 
-    expect(() =>
+    await expect(() =>
       registerUseCase.execute({
         name: 'John Doe',
         email,
