@@ -73,7 +73,7 @@ npm run test
 ```
 Caso utilize o Yarn
 ```
-npm run test
+yarn run test
 ```
 
 
